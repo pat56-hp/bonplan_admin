@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('categoriesplans', function (Blueprint $table) {
             $table->id();
             $table->string('libelle');
+            $table->string('icon')->nullable();
             $table->integer('status')->default(1);
             $table->string('created_by');
             $table->timestamps();
