@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
             "logo_black" => "/assets/logo.png",
             "favicon" => "/assets/logo.png",
             "auteur" => "Patrick Aimé",
-            "Created_by" => "Admin",
+            "created_by" => "Admin",
         ];
 
         \App\Models\Setting::create($data);
