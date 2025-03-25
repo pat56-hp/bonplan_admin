@@ -4,7 +4,7 @@ namespace App\Repositories;
 use App\Domain\EtablissementRepositoryInterface;
 use App\Models\{
     Etablissement,
-    Categoriesplan,
+    Category,
     Commodite,
     Jour,
     Client
@@ -47,6 +47,8 @@ class EtablissementRepository implements EtablissementRepositoryInterface{
     public function save(array $data): mixed{
         DB::beginTransaction();
 
+        //dd($data);
+
         try {
             $etablissement = $this->etablissement->updateOrCreate([
                 'id' => $data['id'],
@@ -66,15 +68,16 @@ class EtablissementRepository implements EtablissementRepositoryInterface{
                 'validate' => $data['validate'] ?? 1,
                 'longitude' => $data['longitude'],
                 'latitude' => $data['latitude'],
+                'created_by' => auth()->user()->name.' '.auth()->user()->lastname,
             ]);
     
-            // Sauvegarde de la gallerie
+            //Sauvegarde de la gallerie
             if (isset($data['galerie'])) {
                 $etablissement->galleries()->delete();
                 $gallery = explode(',', $data['galerie']);
                 foreach ($gallery as $image) {
                     $etablissement->galleries()->create([
-                        'image' => $image
+                        'image' => $image,
                     ]);
                 }
             }
@@ -126,7 +129,7 @@ class EtablissementRepository implements EtablissementRepositoryInterface{
      */
     public function getElementToFront(): array{
         return [
-            'categories' => Categoriesplan::where('status', 1)->get(),
+            'categories' => Category::where('status', 1)->get(),
             'clients' => Client::where(['type' => 1, 'status' => 1, 'validate' => 1])->get(),
             'commodites' => Commodite::orderBy('libelle')->where(['status' => 1])->get(),
             'jours' => Jour::all()

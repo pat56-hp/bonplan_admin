@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gallerie extends Model
+class Gallery extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,10 @@ class Gallerie extends Model
     ];
 
     protected $fillable = [
-        'etablissement_id', 'event_id', 'image'
+        'image'
     ];
+
+    public function galleryable(){
+        return $this->morphTo();
+    }
 }

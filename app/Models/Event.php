@@ -44,22 +44,11 @@ class Event extends Model
     }
 
     public function categorie(){
-        return $this->belongsTo(Eventcategorie::class, 'category_id');
+        return $this->belongsTo(EventCategory::class, 'category_id');
     }
 
-    public function pays(){
-        return $this->belongsTo(Pays::class, 'country_id');
-    }
 
-    public function phonecountry(){
-        return $this->belongsTo(Pays::class, 'phone_country_id');
-    }
-
-    public function whatsappcountry(){
-        return $this->belongsTo(Pays::class, 'whatsapp_country_id');
-    }
-
-    public function photo(){
-        return $this->hasOne(Picture::class, 'event_id');
+    public function galleries(){
+        return $this->morphMany(Gallery::class, 'galleryable');
     }
 }

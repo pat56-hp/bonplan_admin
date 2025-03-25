@@ -31,10 +31,10 @@
                         <div class="custom-tab-1">
                             <ul class="nav nav-tabs">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" data-toggle="tab" href="#home1">Mon profil</a>
+                                    <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">Mon profil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{Request()->routeIs('password') ? 'active' : ''}}" data-toggle="tab" href="#profile1">Sécurité</a>
+                                    <a class="nav-link {{Request()->routeIs('password') ? 'active' : ''}}" href="{{ route('password') }}">Sécurité</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -74,8 +74,8 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="phone" class="form-label">Contact <span class="red">*</span></label>
-                                                    <input type="hidden" name="country_code" value="{{old('country_code', Auth::user()->pays->iso ?? '')}}" required>
-                                                    <input type="text" name="phone" value="{{ old('phone', Auth::user()->phone) }}" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="" data-country="{{ Auth::user()->pays->iso ?? '' }}">
+                                                    <input type="hidden" name="country_code" value="{{old('country_code', 'CI')}}" required>
+                                                    <input type="text" name="phone" value="{{ old('phone', Auth::user()->phone) }}" class="form-control @error('phone') is-invalid @enderror" id="phone" placeholder="" data-country="CI">
                                                     @error('phone')
                                                     <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="tab-pane fade {{Request()->routeIs('password') ? 'show active' : ''}}" id="profile1" role="tabpanel">
                                     <div class="p-t-15">
-                                        <form action="{{ route('password.update')}}" method="post">
+                                        <form action="{{ route('password')}}" method="post">
                                             @csrf
                                             <div class="row m-t-xxl">
                                                 <div class="col-md-6">

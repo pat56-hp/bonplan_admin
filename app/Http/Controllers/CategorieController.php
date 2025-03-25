@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Models\Categoriesplan;
+use App\Models\Category;
 use App\Models\Endroit;
 use App\Models\Etablissement;
 use App\Services\ActivityService;
@@ -25,7 +25,7 @@ class CategorieController extends Controller
         $this->module = "Categories d'établissement";
         View::share('page_title', 'Categories de plan');
         View::share('title', 'Categories de plan');
-        View::share('categories', Categoriesplan::withCount('etablissements')->get());
+        View::share('categories', Category::withCount('etablissements')->get());
         View::share('menu', 'categorieplan');
     }
 
@@ -41,7 +41,7 @@ class CategorieController extends Controller
     }
 
     public function etablissement(Request $request){
-        if(!$categorie = Categoriesplan::find($request->id)){
+        if(!$categorie = Category::find($request->id)){
             session()->flash('type', 'alert-danger');
             session()->flash('message', 'Aucune categorie trouvée');
             return back();
@@ -69,7 +69,7 @@ class CategorieController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'libelle' => 'required|unique:categoriesplans',
+            'libelle' => 'required|unique:categories',
             'icon' => 'required'
         ]);
 
@@ -80,14 +80,15 @@ class CategorieController extends Controller
             'created_by' => Auth::user()->name.' '.Auth::user()->lastname
         ];
 
-        if (Categoriesplan::create($data)){
+        if (Category::create($data)){
             $action = 'Enregistrement des informations de la Categories de plan  '.ucfirst($request->libelle);
             $this->activityService->createActivity($this->module, $action);
             alert('success', 'Les informations de la Categories de plan ont bien été enregistrées avec succès.');
         }else{
             alert('danger', 'Oups, une erreur s\'est produite pendant l\'enregistrement.');
-            return back();
         }
+
+        return back();
     }
 
     /**
@@ -103,7 +104,7 @@ class CategorieController extends Controller
      */
     public function edit(Request $request)
     {
-        if ($categorie = Categoriesplan::find($request->id)){
+        if ($categorie = Category::find($request->id)){
             $action = 'Affichage de la page de modification de la Categories de plan '.$categorie->libelle;
             $this->activityService->createActivity($this->module, $action);
             $data['category'] = $categorie;
@@ -125,7 +126,7 @@ class CategorieController extends Controller
             'icon' => 'required'
         ]);
 
-        if(!$categorie = Categoriesplan::find($request->id)){
+        if(!$categorie = Category::find($request->id)){
             alert('danger', 'Oups, une erreur s\'est produite, aucune Categories de plan n\'a pu être trouvée.');
             return back();
         }
@@ -152,7 +153,7 @@ class CategorieController extends Controller
      */
     public function destroy(Request $request)
     {
-        if($categorie = Categoriesplan::find($request->id)){
+        if($categorie = Category::find($request->id)){
             $categorie->delete();
 
             $action = 'Suppression de la Categories de plan '.$categorie->libelle;
@@ -167,7 +168,7 @@ class CategorieController extends Controller
     }
 
     public function editStatus(Request $request){
-        if($categorie = Categoriesplan::find($request->id)){
+        if($categorie = Category::find($request->id)){
             $categorie->status == 1 ? $newStatus = 0 : $newStatus = 1;
             $newStatus == 1 ? $statusMsg = 'activée' : $statusMsg = 'désactivée';
 

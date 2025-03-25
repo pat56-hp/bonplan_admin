@@ -27,7 +27,7 @@
                     <div class="d-flex justify-content-between">
                         <h1>{{ $title}}</h1>
                         <div class="buttons">
-                            <a href="{{ route('etablissements.index') }}" class="btn btn-primary btn-rounded p-2"><i class="fas fa-list"></i> Liste des endroits</a>
+                            <a href="{{ route('etablissements.index') }}" class="btn btn-primary btn-rounded p-2"><i class="fas fa-list"></i> Liste des établissements</a>
                             <a href="#" class="btn btn-dark btn-rounded p-2"><i class="fas fa-search"></i> Rechercher</a>
                         </div>
                     </div>
@@ -252,10 +252,10 @@
         $("#galerie").uploader({
             multiple: true,
             defaultValue: [
-                @foreach($etablissement->galleries as $image)
+                @foreach($etablissement->galleries as $gallery)
                 {
                     name: "jQuery",
-                    url: "{{$image->image}}"
+                    url: "{{ asset($gallery->image) }}"
                 },
                 @endforeach
             ],
@@ -314,7 +314,7 @@
 
                 {
                     name: "jQuery",
-                    url: "{{$etablissement->image ?? ''}}"
+                    url: "{{ asset($etablissement->image) }}"
                 },
 
             ],
@@ -367,6 +367,6 @@
             },
         })
 
-        <script src="{{ asset('assets/js/script.js') }}"></script>
     </script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 @endpush

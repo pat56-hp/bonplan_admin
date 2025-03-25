@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between">
                         <h1>{{ $title}}</h1>
                         <div class="buttons">
-                            <a href="{{ route('etablissements.create')}}" class="btn btn-primary btn-rounded p-2"><i class="fas fa-plus-circle"></i> Ajouter</a>
+                            <a href="{{ route('etablissements.create')}}" class="btn btn-primary btn-small btn-rounded p-2"><i class="fas fa-plus-circle"></i> Ajouter</a>
                             <a href="#" class="btn btn-dark btn-rounded p-2"><i class="fas fa-search"></i> Recherche</a>
                         </div>
                     </div>
@@ -40,7 +40,8 @@
                                     @foreach($etablissements as $etablissement)
                                     <tr>
                                         <td>
-                                            <img src="{{ $etablissement->image ?? asset('assets/images/image_not_found') }}" width="80px" alt="{{ ucfirst($etablissement->libelle) }}">
+                                            <img src="{{ $etablissement->image ?? asset('assets/images/image_not_found') }}" width="80px" alt="{{ ucfirst($etablissement->libelle) }}"> <br>
+                                            <span class="badge {{ $etablissement->open ? "badge-success" : "badge-danger" }}">{{ $etablissement->open ? "Ouvert" : "Fermé" }}</span>
                                         </td>
                                         <td>{{ html_entity_decode(ucfirst($etablissement->libelle)) }}</td>
                                         <td>{{ ucfirst($etablissement->client_name) }}</td>

@@ -18,10 +18,6 @@ class ActivityRepository implements ActivityRepositoryInterface{
      * @return void
      */
     public function save(array $data): void{
-        $this->activity->create([
-            'admin_id' => auth()->id(),
-            'module' => $data['module'],
-            'action' => $data['action'],
-        ]);
+        $this->activity::saveActivity($data['module'], $data['action']);
     }
 }

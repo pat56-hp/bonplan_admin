@@ -13,6 +13,8 @@ class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, softDeletes;
 
+    protected $table = 'users';
+
      /**
      * The attributes that are mass assignable.
      *
@@ -51,8 +53,4 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function pays(){
-        return $this->belongsTo(Pays::class);
-    }
 }

@@ -38,16 +38,12 @@ class SettingController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'lastname' => 'required',
-            'country_code' => 'required',
             'phone' => 'required',
             'email' => 'required',
             'adresse' => 'required',
         ]);
 
         //dd($request->country_code);
-
-        $pays = Pays::where('iso', $request->country_code)->firstOrFail();
-        $data['pays_id'] = $pays->id;
 
         if (auth()->user()->update($data)) {
             session()->flash('type', 'alert-success');

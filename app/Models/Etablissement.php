@@ -13,10 +13,10 @@ class Etablissement extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'libelle', 'ville', 'adresse', 'email', 'phone', 'image', 'client_id', 'category_id', 'facebook', 'instagram', 'status', 'description', 'longitude', 'latitude', 'validate'
+        'libelle', 'ville', 'adresse', 'email', 'phone', 'image', 'client_id', 'category_id', 'facebook', 'instagram', 'status', 'description', 'longitude', 'latitude', 'validate', 'created_by'
     ];
 
-    protected $appends = ['open', 'isFavorite', 'note'];
+    protected $appends = ['open', 'note'];
 
     protected $hidden = [
         'updated_at'
@@ -26,16 +26,12 @@ class Etablissement extends Model
         return $this->belongsTo(Client::class, 'client_id', 'id');
     }
 
-    public function favoris(){
-        return $this->hasMany(Favoris::class, 'etablissement_id');
-    }
-
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function galleries(){
-        return $this->hasMany(Gallerie::class, 'etablissement_id');
+        return $this->morphMany(Gallery::class, 'galleryable');
     }
 
     public function commodites(){
@@ -44,10 +40,6 @@ class Etablissement extends Model
 
     public function jours(){
         return $this->belongsToMany(Jour::class, 'horaires', 'etablissement_id', 'jour_id')->withPivot(['ouverture', 'fermeture']);
-    }
-
-    public function commentaires(){
-        return $this->hasMany(Commentaire::class, 'etablissement_id')->with('client')->latest();
     }
 
     /**
@@ -95,13 +87,6 @@ class Etablissement extends Model
         }
 
         return false;
-    }
-
-
-    //Verifie si l'etablissement a ete ajoute en favoris par l'utilisateur connecte
-    public function getIsFavoriteAttribute(): bool{
-        $favoris = Favoris::where(['etablissement_id' => $this->id, 'client_id' => auth('api')->id()])->first();
-        return !empty($favoris) ? true : false;
     }
 
     public function getNoteAttribute(): int{
