@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('horaires', function (Blueprint $table) {
+        Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->integer('etablissement_id');
-            $table->integer('jour_id');
-            $table->time('ouverture');
-            $table->time('fermeture');
-            $table->string('created_by');
+            $table->morphs('galleryable'); // Crée 'galleryable_id' et 'galleryable_type'
+            $table->string('image');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('horaires');
+        Schema::dropIfExists('galleries');
     }
 };

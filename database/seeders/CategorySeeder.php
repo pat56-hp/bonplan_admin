@@ -45,7 +45,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            \App\Models\Categoriesplan::create($category);
+            \App\Models\Category::create($category);
         }
 
 

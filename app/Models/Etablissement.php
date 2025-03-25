@@ -31,7 +31,7 @@ class Etablissement extends Model
     }
 
     public function category(){
-        return $this->belongsTo(Categoriesplan::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function galleries(){
