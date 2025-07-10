@@ -11,11 +11,13 @@ class Horaire extends Model
 
     protected $fillable = ['jour_id', 'etablissement_id', 'ouverture', 'fermeture', 'created_by'];
 
-    public function etablissement(){
+    public function etablissement()
+    {
         return $this->belongsTo(Etablissement::class, 'etablissement_id');
     }
 
-    public function jour(){
+    public function jour()
+    {
         return $this->belongsTo(Jour::class, 'jour_id');
     }
 }
