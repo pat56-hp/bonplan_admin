@@ -31,7 +31,12 @@
                 </div>
                 <div class="">
                     <label for="signInPassword" class="form-label">Mot de passe</label>
-                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="signInPassword" aria-describedby="signInPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                    <div class="password_content">
+                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="signInPassword" aria-describedby="signInPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        <span class="show_or_hide_password">
+                            <i class="show_password fa fa-eye h5"></i>
+                        </span>
+                    </div>
                     @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
