@@ -54,7 +54,24 @@
     .a.focus, .a:focus, .a:hover, .a:not(:disabled):not(.disabled).active, .a:not(:disabled):not(.disabled):active, .show>.a.dropdown-toggle {
         color: #333 !important;
     }
+
+    .password_content{
+        position: relative;
+    }
+
+    .password_content .show_or_hide_password{
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #4c4c4c;
+    }
+
+    .password_content .show_or_hide_password:hover{
+        cursor: pointer;
+    }
+
     </style>
 
+    @stack('css')
 </head>
 <body>
