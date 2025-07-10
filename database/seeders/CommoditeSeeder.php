@@ -26,6 +26,8 @@ class CommoditeSeeder extends Seeder
             ['libelle' => 'Privatisation possible', 'icon' => 'icon_private_event', 'status' => 1, 'created_by' => 'admin'],
             ['libelle' => 'Accessibilité PMR', 'icon' => 'icon_accessible', 'status' => 1, 'created_by' => 'admin'],
             ['libelle' => 'Sécurité 24h/24', 'icon' => 'icon_security', 'status' => 1, 'created_by' => 'admin'],
+            ['libelle' => 'Air conditionné', 'icon' => 'icon_security', 'status' => 1, 'created_by' => 'admin'],
+            ['libelle' => 'Paiement CB', 'icon' => 'icon_security', 'status' => 1, 'created_by' => 'admin'],
         ];
 
         foreach ($commodites as $commodite) {
